@@ -23,7 +23,7 @@ then
 	exit 1
 fi
 
-if [[ ! $1 ]] 
+if [[ ! $2 ]] 
 then
         echo -e "Need two command arguments. Whoops! \n"
         echo -e " Usage:" 
@@ -42,9 +42,9 @@ for host in $(cat hosts.txt)
 do
 	echo -e "Hostname: $host attmpting..."
 	scp "$1" "$username"@"$host":/tmp/
-	ssh "$username"@"$host" chmod 750 /tmp/"$1"
-	ssh "$username"@"$host" /tmp/"$1"
-
+	ssh -t "$username"@"$host" chmod 750 /tmp/"$1"
+	ssh -t "$username"@"$host" /tmp/"$1"
+	echo -e "        : $host COMPLETE.\n\n"
 done
 
 
